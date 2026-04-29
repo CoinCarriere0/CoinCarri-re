@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoinCarrière — وظِّف أفضل المواهب في قطاع الفنادق</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:       #FFFFFF;
+      --bg2:      #F1F5F9;
+      --blue:     #2563EB;
+      --blue-h:   #1D4ED8;
+      --blue-l:   #2563EB;
+      --green:    #10B981;
+      --green-l:  #059669;
+      --text:     #0F172A;
+      --sub:      #475569;
+      --muted:    #94A3B8;
+      --border:   rgba(15,23,42,.1);
+      --r:        14px;
+      --r2:       22px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Cairo',sans-serif;background:#fff;color:var(--text);direction:rtl;overflow-x:hidden;line-height:1.75}
+    img{max-width:100%;display:block}
+    a{text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 5%}
+    .tag{display:inline-block;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);color:var(--blue);padding:5px 16px;border-radius:50px;font-size:.78rem;font-weight:700;letter-spacing:.5px}
+    .tag-green{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25);color:var(--green-l)}
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.on{opacity:1;transform:none}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 34px;border-radius:50px;font-family:'Cairo',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:transform .22s,box-shadow .22s,background .22s}
+    .btn-blue{background:var(--blue);color:#fff;box-shadow:0 6px 24px rgba(37,99,235,.25)}
+    .btn-blue:hover{background:var(--blue-h);transform:translateY(-3px);box-shadow:0 14px 32px rgba(37,99,235,.35)}
+    .btn-outline{background:transparent;color:var(--blue);border:1.5px solid rgba(37,99,235,.35)}
+    .btn-outline:hover{background:rgba(37,99,235,.06);transform:translateY(-3px)}
+    .btn-pulse{background:var(--blue);color:#fff;animation:pulse 2s infinite}
+    .btn-pulse:hover{background:var(--blue-h);transform:translateY(-3px)}
+    @keyframes pulse{
+      0%  {box-shadow:0 0 0 0   rgba(37,99,235,.5)}
+      70% {box-shadow:0 0 0 12px rgba(37,99,235,0)}
+      100%{box-shadow:0 0 0 0   rgba(37,99,235,0)}
+    }
+
+    /* ══ NAVBAR ══ */
+    nav{position:fixed;inset:0 0 auto;z-index:200;background:#fff;border-bottom:1px solid rgba(15,23,42,.1);box-shadow:0 1px 12px rgba(15,23,42,.06);padding:0 5%}
+    .nav-in{max-width:1100px;margin:0 auto;height:66px;display:flex;align-items:center;justify-content:space-between}
+    /* logo image in navbar */
+    .nav-logo img{height:44px;object-fit:contain}
+    .nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+    .nav-links a{color:var(--sub);font-size:.87rem;font-weight:600;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+
+    /* ══ PAGE 1 — HERO (split: text + image) ══ */
+    .hero{min-height:100vh;position:relative;padding:100px 5% 80px;display:flex;align-items:center;overflow:hidden}
+    /* subtle light gradient bg */
+    .hero-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,#F8FAFF 0%,#EFF6FF 50%,#F0FDF9 100%)}
+    .hero-split{position:relative;z-index:2;max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    /* text side */
+    .h-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--green-l);padding:7px 18px;border-radius:50px;font-size:.8rem;font-weight:700;margin-bottom:28px}
+    .h-badge::before{content:'●';font-size:.5rem;animation:blink 1.4s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .hero h1{font-size:clamp(2rem,4.5vw,3.6rem);font-weight:900;line-height:1.18;margin-bottom:20px}
+    .hl{color:var(--blue-l)}
+    .hg{color:var(--green-l)}
+    .hero p{font-size:1.05rem;color:var(--sub);max-width:480px;margin-bottom:36px}
+    .h-btns{display:flex;gap:14px;flex-wrap:wrap}
+    /* image side */
+    .hero-img-wrap{position:relative;border-radius:var(--r2);overflow:hidden;box-shadow:0 20px 60px rgba(37,99,235,.15);aspect-ratio:1/1;background:#EFF6FF}
+    .hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:none;padding:0}
+    /* floating badge on image */
+    .hero-img-badge{position:absolute;bottom:20px;right:20px;background:#fff;backdrop-filter:blur(12px);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:12px 18px;display:flex;align-items:center;gap:10px}
+    .hib-num{font-size:1.3rem;font-weight:900;color:var(--blue-l);display:block;line-height:1}
+    .hib-lbl{font-size:.72rem;color:var(--sub)}
+    .hero-img-badge2{position:absolute;top:20px;left:20px;background:#fff;backdrop-filter:blur(12px);border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:8px}
+    .hib2-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1.4s infinite;flex-shrink:0}
+    .hib2-txt{font-size:.75rem;color:var(--green-l);font-weight:700}
+
+    /* ══ PAGE 2 — PARTNERS/LOGO BAR ══ */
+    .page2{background:var(--bg2);padding:52px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .page2-inner{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:40px}
+    .page2-label{font-size:.8rem;color:var(--muted);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+    .page2-logo{opacity:.75;transition:opacity .25s}
+    .page2-logo:hover{opacity:1}
+    .page2-logo img{height:38px;object-fit:contain}
+    /* divider */
+    .page2-sep{width:1px;height:36px;background:var(--border)}
+
+    /* ══ PAGE 3 — CHALLENGES ══ */
+    .challenges{background:var(--bg);padding:88px 0}
+    .ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .ch-body p{color:var(--sub);font-size:.95rem;line-height:1.82;margin-bottom:14px}
+    .ch-cards{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+    .ch-card{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid rgba(37,99,235,.15);border-radius:12px;padding:17px 20px;box-shadow:0 2px 8px rgba(37,99,235,.06);transition:border-color .25s,box-shadow .25s}
+    .ch-card:hover{border-color:rgba(37,99,235,.3);box-shadow:0 6px 18px rgba(37,99,235,.1)}
+    .ch-em{font-size:1.25rem;flex-shrink:0;margin-top:2px}
+    .ch-card h4{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:3px}
+    .ch-card p{font-size:.83rem;color:var(--sub);line-height:1.6;margin:0}
+    .ch-visual{position:relative;border-radius:var(--r2);overflow:hidden;aspect-ratio:1/1;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+    .ch-visual img{width:100%;height:100%;object-fit:cover;filter:none}
+    .ch-vis-ov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,23,42,.08),rgba(37,99,235,.06))}
+    .ch-float{position:absolute;bottom:18px;right:18px;background:#fff;backdrop-filter:blur(12px);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:12px 18px}
+    .ch-float-n{font-size:1.35rem;font-weight:900;color:var(--blue-l);display:block}
+    .ch-float-l{font-size:.72rem;color:var(--sub)}
+
+    /* ══ PAGE 4 — CANDIDATE SECTION ══ */
+    .page4{background:var(--bg2);padding:88px 0}
+    .p4-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    /* candidate image */
+    .p4-img{position:relative;border-radius:var(--r2);overflow:hidden;box-shadow:0 28px 72px rgba(0,0,0,.4);aspect-ratio:1/1}
+    .p4-img img{width:100%;height:100%;object-fit:cover;filter:none}
+    .p4-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(37,99,235,.04),transparent 55%);z-index:1}
+    /* candidate profile card overlay */
+    .p4-card{position:absolute;bottom:20px;right:20px;z-index:2;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:16px 20px;min-width:200px}
+    .p4-card-name{font-size:.9rem;font-weight:800;color:#0F172A;margin-bottom:4px}
+    .p4-card-role{font-size:.75rem;color:var(--blue);margin-bottom:10px}
+    .p4-tags{display:flex;flex-wrap:wrap;gap:5px}
+    .p4-tag{background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);color:var(--blue-l);padding:3px 10px;border-radius:50px;font-size:.7rem;font-weight:600}
+    /* text side */
+    .p4-text h2{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:900;line-height:1.28;margin-bottom:14px}
+    .p4-text .sec-desc{color:var(--sub);font-size:.97rem;margin-bottom:28px}
+    .p4-pts{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+    .p4-pt{display:flex;align-items:flex-start;gap:12px}
+    .p4-dot{width:22px;height:22px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px;font-size:.65rem;color:var(--green-l)}
+    .p4-pt p{font-size:.9rem;color:var(--sub);line-height:1.65}
+    .p4-pt p strong{color:var(--text)}
+
+    /* ══ PAGE 5 — STATS ══ */
+    .stats{background:var(--bg);padding:88px 0}
+    .sec-h{text-align:center;margin-bottom:52px}
+    .sec-h p{color:var(--sub);font-size:.97rem;margin:10px auto 0;max-width:520px}
+    h2{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:900;line-height:1.28}
+    .s-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .s-card{background:#fff;border:1px solid var(--border);box-shadow:0 2px 10px rgba(15,23,42,.06);border-radius:var(--r);padding:32px 20px;text-align:center;position:relative;overflow:hidden;transition:transform .28s,box-shadow .28s}
+    .s-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .3s}
+    .s-card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(37,99,235,.1)}
+    .s-card:hover::after{transform:scaleX(1)}
+    .s-num{font-size:2.4rem;font-weight:900;color:var(--blue-l);display:block;line-height:1}
+    .s-lbl{font-size:.88rem;font-weight:700;color:var(--text);margin-top:8px}
+    .s-sub{font-size:.74rem;color:var(--sub);margin-top:4px}
+
+    /* ══ PAGE 6 — FEATURES WITH ICONS + CANDIDATE ══ */
+    .page6{background:var(--bg2);padding:88px 0}
+    .p6-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    /* icon features */
+    .p6-features{display:flex;flex-direction:column;gap:24px;margin-top:32px}
+    .p6-feat{display:flex;gap:18px;align-items:flex-start;padding:20px;border:1px solid var(--border);border-radius:var(--r);background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.06);transition:border-color .25s,box-shadow .25s}
+    .p6-feat:hover{border-color:rgba(37,99,235,.3);box-shadow:0 6px 20px rgba(37,99,235,.1)}
+    .p6-icon{width:56px;height:56px;flex-shrink:0;border-radius:12px;overflow:hidden;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.15);display:flex;align-items:center;justify-content:center}
+    .p6-icon img{width:36px;height:36px;object-fit:contain}
+    .p6-feat h3{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:6px}
+    .p6-feat p{font-size:.87rem;color:var(--sub);line-height:1.72}
+    /* candidate image side */
+    .p6-img-wrap{position:relative;border-radius:var(--r2);overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.4);aspect-ratio:1/1}
+    .p6-img-wrap img{width:100%;height:100%;object-fit:cover;filter:none}
+    .p6-overlay{position:absolute;bottom:24px;left:0;right:0;padding:0 24px;z-index:2}
+    .p6-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--green-l);padding:6px 14px;border-radius:50px;font-size:.75rem;font-weight:700;margin-bottom:10px}
+    .p6-name{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:4px}
+    .p6-role{font-size:.8rem;color:var(--sub)}
+    .p6-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+    .p6-tag{background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.25);color:var(--blue-l);padding:4px 12px;border-radius:50px;font-size:.72rem;font-weight:600}
+
+    /* ══ PAGE 7 — TESTIMONIALS ══ */
+    .testi{background:var(--bg);padding:88px 0}
+    .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .t-card{background:#fff;border:1px solid var(--border);box-shadow:0 2px 12px rgba(15,23,42,.06);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;transition:transform .28s,box-shadow .28s}
+    .t-card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(37,99,235,.1);border-color:rgba(37,99,235,.2)}
+    .t-stars{color:#FBBF24;letter-spacing:2px;font-size:.85rem;margin-bottom:14px}
+    .t-text{font-size:.9rem;color:var(--text);line-height:1.82;font-style:italic;margin-bottom:24px;flex:1}
+    .t-auth{display:flex;align-items:center;gap:12px}
+    .t-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#1E40AF);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:#fff;flex-shrink:0}
+    .t-name{font-weight:700;font-size:.87rem}
+    .t-role{font-size:.74rem;color:var(--green)}
+
+    /* COMPARISON */
+    .comp-sec{background:var(--bg2);padding:88px 0}
+    .comp-box{max-width:880px;margin:0 auto;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+    .comp-head{display:grid;grid-template-columns:2fr 1fr 1fr;background:rgba(37,99,235,.1);padding:20px 28px;font-weight:700;font-size:.88rem;text-align:center;border-bottom:1px solid var(--border);gap:8px}
+    .c0{text-align:right}
+    .comp-head .c0{color:var(--sub)}
+    .comp-head .c1{color:var(--blue-l)}
+    .comp-head .c2{color:var(--muted)}
+    .comp-row{display:grid;grid-template-columns:2fr 1fr 1fr;padding:17px 28px;border-top:1px solid var(--border);font-size:.9rem;text-align:center;align-items:center;transition:background .2s;gap:8px}
+    .comp-row:hover{background:rgba(37,99,235,.03)}
+    .comp-row .c0{color:var(--text);font-weight:500}
+    .cy{color:var(--green);font-weight:700}
+    .cn{color:#F87171}
+
+    /* CTA */
+    .cta-sec{background:var(--bg2);text-align:center;position:relative;overflow:hidden;padding:104px 0}
+    .cta-sec::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(37,99,235,.12),transparent 70%);pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 5%}
+    .cta-sec h2{margin-bottom:16px}
+    .cta-sec .sec-desc{color:var(--sub);font-size:.97rem;max-width:500px;margin:0 auto 36px}
+    .cta-checks{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:20px;font-size:.82rem;color:var(--muted)}
+    .ok{color:var(--green)}
+
+    /* FOOTER */
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:36px 5%;text-align:center}
+    .f-logo img{height:34px;object-fit:contain;margin:0 auto 10px}
+    footer p{color:var(--muted);font-size:.8rem}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero-split,.ch-grid,.p4-grid,.p6-grid{grid-template-columns:1fr}
+      .hero-img-wrap{display:none}
+      .ch-visual{display:none}
+      .t-grid{grid-template-columns:1fr}
+      .s-grid{grid-template-columns:repeat(2,1fr)}
+      .comp-head,.comp-row{padding:13px 14px;font-size:.8rem}
+    }
+    @media(max-width:540px){
+      .h-btns{flex-direction:column;align-items:center}
+      .btn{width:100%}
+      .nav-links li:not(:last-child){display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+  NAVBAR — logo-white.png
+═══════════════════════════════════════ -->
+<nav>
+  <div class="nav-in">
+    <ul class="nav-links">
+      <li><a href="#page4">المرشحون</a></li>
+      <li><a href="#stats">الأرقام</a></li>
+      <li><a href="#testi">الشركاء</a></li>
+      <li>
+        <a href="https://coincarriere.com/register?type=company"
+           class="btn btn-blue" style="padding:9px 22px;font-size:.84rem">ابدأ مجاناً</a>
+      </li>
+    </ul>
+    <a href="#" class="nav-logo">
+      <img src="product-card-01.png.png" alt="CoinCarrière"/>
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+  PAGE 1 — HERO
+  hero-bg.jpg في الجانب الأيسر (split)
+═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-split reveal">
+
+    <!-- Text side (right — RTL) -->
+    <div>
+      <div class="h-badge">المنصة الأولى للتوظيف الفندقي</div>
+      <h1>
+        وظِّف <span class="hl">أفضل المواهب</span><br/>
+        في قطاع <span class="hg">الفنادق</span><br/>
+        بسرعة وكفاءة
+      </h1>
+      <p>
+        منصة <strong>CoinCarrière</strong> هي الوجهة الأولى للتوظيف الفندقي —
+        تربط المنشآت بالكفاءات المتخصصة في وقت قياسي.
+      </p>
+      <div class="h-btns">
+        <a href="https://coincarriere.com/register?type=company" class="btn btn-pulse">
+          ابدأ التوظيف الآن — مجاناً
+        </a>
+        <a href="#page4" class="btn btn-outline">تعرّف على المنصة</a>
+      </div>
+    </div>
+
+    <!-- Image side (left) — hero-bg.jpg -->
+    <div class="hero-img-wrap">
+      <img src="hero-bg.jpg.png" alt="التوظيف الفندقي"/>
+      <div class="hero-img-badge">
+        <div>
+          <span class="hib-num">48h</span>
+          <span class="hib-lbl">متوسط وقت التوظيف</span>
+        </div>
+      </div>
+      <div class="hero-img-badge2">
+        <div class="hib2-dot"></div>
+        <span class="hib2-txt">+500 فندق شريك</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  PAGE 2 — LOGO / PARTNERS BAR
+  logo-white.png
+═══════════════════════════════════════ -->
+<div class="page2">
+  <div class="wrap">
+    <div class="page2-inner">
+      <span class="page2-label">موثوق لدى</span>
+      <div class="page2-sep"></div>
+      <div style="text-align:center">
+        <span style="font-size:1.6rem;font-weight:900;color:var(--blue-l)">+500</span>
+        <p style="font-size:.78rem;color:var(--sub);margin-top:2px">منشأة فندقية شريكة</p>
+      </div>
+      <div class="page2-sep"></div>
+      <div style="text-align:center">
+        <span style="font-size:1.6rem;font-weight:900;color:var(--green-l)">98%</span>
+        <p style="font-size:.78rem;color:var(--sub);margin-top:2px">نسبة رضا العملاء</p>
+      </div>
+      <div class="page2-sep"></div>
+      <div style="text-align:center">
+        <span style="font-size:1.6rem;font-weight:900;color:var(--blue-l)">-70%</span>
+        <p style="font-size:.78rem;color:var(--sub);margin-top:2px">توفير في وقت التوظيف</p>
+      </div>
+      <div class="page2-sep"></div>
+      <div style="text-align:center">
+        <span style="font-size:1.6rem;font-weight:900;color:var(--blue-l)">48h</span>
+        <p style="font-size:.78rem;color:var(--sub);margin-top:2px">متوسط وقت التوظيف</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+  PAGE 3 — CHALLENGES
+═══════════════════════════════════════ -->
+<section class="challenges">
+  <div class="wrap">
+    <div class="ch-grid">
+      <div class="reveal">
+        <div class="tag">التحديات</div>
+        <h2 style="margin-top:12px">تحديات التوظيف التقليدي</h2>
+        <div class="ch-body" style="margin-top:14px">
+          <p>في عالم التوظيف الفندقي المتغير، تواجه الشركات صعوبات جمة في العثور على الكفاءات المناسبة. غالبًا ما تكون العمليات التقليدية مستهلكة للوقت ومكلفة.</p>
+          <p>البحث اليدوي عن المرشحين وتدقيق السير الذاتية يستهلكان موارد ثمينة، ويتركان فرق التوظيف تحت ضغط كبير.</p>
+        </div>
+        <div class="ch-cards">
+          <div class="ch-card"><div class="ch-em">⏱️</div><div><h4>ضياع الوقت</h4><p>الفرز اليدوي والمقابلات غير المجدية تأكل أسابيع من وقت فريقك.</p></div></div>
+          <div class="ch-card"><div class="ch-em">💸</div><div><h4>تكاليف مرتفعة</h4><p>وكالات التوظيف التقليدية تطلب عمولات ضخمة دون ضمان نتائج.</p></div></div>
+          <div class="ch-card"><div class="ch-em">🎯</div><div><h4>نقص التخصص</h4><p>صعوبة إيجاد مرشحين بخبرة فندقية حقيقية ومُدققة مسبقاً.</p></div></div>
+        </div>
+      </div>
+      <div class="ch-visual reveal" style="transition-delay:.15s">
+        <img src="logo-white.png.jpeg" alt="التوظيف الفندقي"/>
+        <div class="ch-vis-ov"></div>
+        <div class="ch-float">
+          <span class="ch-float-n">-70%</span>
+          <span class="ch-float-l">توفير في وقت التوظيف</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  PAGE 4 — CANDIDATE (candidate-1.jpg)
+═══════════════════════════════════════ -->
+<section class="page4" id="page4">
+  <div class="wrap">
+    <div class="p4-grid">
+
+      <!-- Candidate image -->
+      <div class="p4-img reveal">
+        <img src="photo1.png.png" alt="مرشح محترف"/>
+        <div class="p4-card">
+          <div class="p4-card-name">مرشح مؤهل ✓</div>
+          <div class="p4-card-role">خبرة فندقية موثقة</div>
+          <div class="p4-tags">
+            <span class="p4-tag">F&B</span>
+            <span class="p4-tag">5★ فنادق</span>
+            <span class="p4-tag">متاح الآن</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="tag">المرشحون</div>
+        <h2 class="p4-text" style="margin-top:12px;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:900;line-height:1.28;margin-bottom:14px">
+          حلول التوظيف الذكية في متناول يدك
+        </h2>
+        <p class="p4-text sec-desc" style="color:var(--sub);font-size:.97rem;margin-bottom:28px">
+          مع منصة CoinCarrière، يمكنك تصفح ملفات المرشحين المؤهلين وإدارة طلبات التوظيف بكفاءة وسرعة — في أي وقت ومن أي مكان.
+        </p>
+        <div class="p4-pts">
+          <div class="p4-pt"><div class="p4-dot">✓</div><p><strong>تصفح فوري</strong> لآلاف السير الذاتية المدققة في قطاع الفنادق.</p></div>
+          <div class="p4-pt"><div class="p4-dot">✓</div><p><strong>إشعارات لحظية</strong> عند توفر مرشح يتطابق مع متطلباتك.</p></div>
+          <div class="p4-pt"><div class="p4-dot">✓</div><p><strong>إدارة كاملة</strong> للطلبات والمقابلات من لوحة واحدة.</p></div>
+          <div class="p4-pt"><div class="p4-dot">✓</div><p><strong>تقارير تفصيلية</strong> لمتابعة أداء عملية التوظيف.</p></div>
+        </div>
+        <a href="https://coincarriere.com/register?type=company" class="btn btn-pulse">جرّب المنصة مجاناً</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  PAGE 5 — STATS
+═══════════════════════════════════════ -->
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="tag">الأرقام</div>
+      <h2 style="margin-top:12px">أرقام تتحدث عن نجاح حقيقي</h2>
+      <p>منذ انطلاقنا، حققنا نتائج ملموسة تعكس ثقة الشركاء الفندقيين وكفاءة منصتنا.</p>
+    </div>
+    <div class="s-grid">
+      <div class="s-card reveal"><span class="s-num">-70%</span><div class="s-lbl">توفير في وقت التوظيف</div><div class="s-sub">مقارنةً بالطرق التقليدية</div></div>
+      <div class="s-card reveal" style="transition-delay:.08s"><span class="s-num">+500</span><div class="s-lbl">فندق شريك</div><div class="s-sub">منشآت فندقية موثوقة</div></div>
+      <div class="s-card reveal" style="transition-delay:.16s"><span class="s-num">48h</span><div class="s-lbl">متوسط زمن التوظيف</div><div class="s-sub">من النشر حتى الاختيار</div></div>
+      <div class="s-card reveal" style="transition-delay:.24s"><span class="s-num">98%</span><div class="s-lbl">رضا العملاء</div><div class="s-sub">بين الشركاء الفندقيين</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  PAGE 6 — FEATURES
+  icon-recruitment.svg + icon-training.svg + candidate-1.jpg
+═══════════════════════════════════════ -->
+<section class="page6">
+  <div class="wrap">
+    <div class="p6-grid">
+
+      <!-- Features with icons -->
+      <div class="reveal">
+        <div class="tag">المزايا</div>
+        <h2 style="margin-top:12px">مزايا التوظيف مع CoinCarrière</h2>
+        <p style="color:var(--sub);font-size:.95rem;margin:12px 0 0">حلول متكاملة مصممة خصيصاً لقطاع الفنادق.</p>
+
+        <div class="p6-features">
+          <div class="p6-feat">
+            <div>
+              <h3>مرشحون متخصصون فندقياً</h3>
+              <p>قاعدة بيانات حصرية من المواهب ذات الخبرة الفندقية الموثقة، مصنَّفة حسب التخصص والخبرة.</p>
+            </div>
+          </div>
+
+          <div class="p6-feat">
+            <div>
+              <h3>توظيف خلال 48 ساعة</h3>
+              <p>نظام ذكي يُطابق المتطلبات مع المرشحين المناسبين فورياً ويُرسل إشعارات لحظية لأصحاب العمل.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- candidate-1.jpg — clean, no overlay -->
+      <div class="p6-img-wrap reveal" style="transition-delay:.15s">
+        <img src="candidate-1.jpg.png" alt="مرشح محترف"/>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  PAGE 7 — TESTIMONIALS
+═══════════════════════════════════════ -->
+<section class="testi" id="testi">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="tag">آراء الشركاء</div>
+      <h2 style="margin-top:12px">ماذا يقول شركاؤنا؟</h2>
+      <p>أكثر من 500 منشأة فندقية تثق في CoinCarrière لبناء فرقها.</p>
+    </div>
+    <div class="t-grid">
+      <div class="t-card reveal">
+        <div><div class="t-stars">★★★★★</div><p class="t-text">«وظَّفنا ثلاثة موظفين خلال يومين فقط — لم نتوقع هذه السرعة والجودة معاً. CoinCarrière غيَّرت طريقة تفكيرنا في التوظيف.»</p></div>
+        <div class="t-auth"><div class="t-av">أ.م</div><div><div class="t-name">أحمد المنصور</div><div class="t-role">مدير الموارد البشرية — ريتز كارلتون الرياض</div></div></div>
+      </div>
+      <div class="t-card reveal" style="transition-delay:.1s">
+        <div><div class="t-stars">★★★★★</div><p class="t-text">«المنصة سهلة الاستخدام والمرشحون ذوو جودة عالية. نسبة النجاح في التعيينات ارتفعت بشكل ملحوظ منذ انضممنا.»</p></div>
+        <div class="t-auth"><div class="t-av">ن.س</div><div><div class="t-name">نورة السعيد</div><div class="t-role">مديرة التوظيف — سلسلة فنادق حياة</div></div></div>
+      </div>
+      <div class="t-card reveal" style="transition-delay:.2s">
+        <div><div class="t-stars">★★★★★</div><p class="t-text">«وفَّرنا أكثر من 60% من وقت عملية التوظيف. الفريق داعم والمنصة تفهم طبيعة القطاع الفندقي جيداً.»</p></div>
+        <div class="t-auth"><div class="t-av">خ.ع</div><div><div class="t-name">خالد العتيبي</div><div class="t-role">المدير التنفيذي</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="comp-sec">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="tag">المقارنة</div>
+      <h2 style="margin-top:12px">مقارنة CoinCarrière مع الطرق التقليدية</h2>
+    </div>
+    <div class="comp-box reveal">
+      <div class="comp-head">
+        <div class="c0">المعيار</div>
+        <div class="c1">✦ CoinCarrière</div>
+        <div class="c2">الطرق التقليدية</div>
+      </div>
+      <div class="comp-row"><div class="c0">زمن التوظيف</div><div class="cy">48 ساعة ✓</div><div class="cn">أسابيع ✗</div></div>
+      <div class="comp-row"><div class="c0">تخصص فندقي</div><div class="cy">✓</div><div class="cn">✗</div></div>
+      <div class="comp-row"><div class="c0">التسجيل مجاني</div><div class="cy">✓</div><div class="cn">✗</div></div>
+      <div class="comp-row"><div class="c0">مرشحون مدققون</div><div class="cy">✓</div><div class="cn">✗</div></div>
+      <div class="comp-row"><div class="c0">إدارة رقمية كاملة</div><div class="cy">✓</div><div class="cn">✗</div></div>
+      <div class="comp-row"><div class="c0">دعم متخصص</div><div class="cy">✓</div><div class="cn">✗</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="cta-in reveal">
+    <div class="tag tag-green" style="margin-bottom:20px">ابدأ الآن</div>
+    <h2>جاهز لتحويل تجربة<br/>التوظيف الفندقي؟</h2>
+    <p class="sec-desc">انضم إلى أكثر من 500 منشأة فندقية تثق في CoinCarrière. سجِّل مجاناً وابدأ التوظيف خلال دقائق.</p>
+    <a href="https://coincarriere.com/register?type=company" class="btn btn-pulse">ابدأ التوظيف الآن — مجاناً</a>
+    <div class="cta-checks">
+      <span class="ok">✅</span> التسجيل مجاني &nbsp;—&nbsp;
+      <span class="ok">✅</span> لا يُطلب بطاقة ائتمانية &nbsp;—&nbsp;
+      <span class="ok">✅</span> ابدأ فوراً
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">
+    <img src="product-card-01.png.png" alt="CoinCarrière"/>
+  </div>
+  <p>© 2026 CoinCarrière — جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Navbar always white
+  const nav = document.querySelector('nav');
+  nav.style.background = '#fff';
+</script>
+</body>
+</html>
